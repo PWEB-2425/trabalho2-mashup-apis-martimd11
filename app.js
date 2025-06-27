@@ -6,7 +6,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const User = require('./models/User');
 const bcrypt = require('bcrypt');
-require('dotenv').config();
 
 const app = express();
 
@@ -50,10 +49,17 @@ passport.deserializeUser(async (id, done) => {
 
 // Rotas
 const authRoutes = require('./routes/auth');
+const apiRoutes = require('./routes/api');
 app.use('/', authRoutes);
+app.use('/', apiRoutes);
 
 app.get('/search', isAuthenticated, (req, res) => {
-  res.render('search', { user: req.user });
+  res.render('search', {
+    user: req.user,
+    wiki: null,
+    country: null,
+    news: []
+  });
 });
 
 // Middleware de proteção

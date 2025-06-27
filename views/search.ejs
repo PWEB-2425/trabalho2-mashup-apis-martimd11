@@ -1,6 +1,27 @@
 <h2>Bem-vindo <%= user.username %></h2>
-<a href="/logout">Logout</a>
 <form method="GET" action="/api/search">
-  <input type="text" name="q" placeholder="Pesquisar termo...">
+  <input type="text" name="q" placeholder="Pesquisar país...">
   <button type="submit">Pesquisar</button>
 </form>
+
+<% if (wiki && country) { %>
+  <h3><%= wiki.title %></h3>
+  <p><%= wiki.extract %></p>
+
+  <h4>Informações do país</h4>
+  <p><strong>Capital:</strong> <%= country.capital %></p>
+  <p><strong>População:</strong> <%= country.population.toLocaleString() %></p>
+  <p><strong>Moeda:</strong> <%= Object.values(country.currencies)[0].name %></p>
+  <img src="<%= country.flags.png %>" alt="Bandeira de <%= country.name.common %>">
+<% } %>
+
+<% if (news && news.length > 0) { %>
+  <h4>Notícias recentes sobre <%= country.name.common %></h4>
+  <ul>
+    <% news.forEach(article => { %>
+      <li>
+        <a href="<%= article.url %>" target="_blank"><%= article.title %></a>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
