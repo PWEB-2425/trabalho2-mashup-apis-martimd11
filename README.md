@@ -1,73 +1,24 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/psUndoci)
-# Trabalho #2 API MASHUP
+# Trabalho 2 – Mashup de APIs
 
-**Data de Entrega:** 26 de junho de 2025
+Martim Duarte  
+Número de aluno: [31651]
 
----
+Este projeto foi desenvolvido no âmbito da unidade curricular de PW da ESTG-IPVC. Consiste numa aplicação web que permite pesquisar países após o utilizador efetuar login. A aplicação consome e integra dados de três APIs REST externas, realizando um mashup de informações úteis sobre o país pesquisado. As pesquisas são guardadas no histórico do utilizador, que está persistido numa base de dados MongoDB.
 
-## 1. Objetivo
+A aplicação permite ao utilizador registar-se com nome de utilizador e password. Após autenticação, o utilizador pode aceder à funcionalidade de pesquisa, onde escreve o nome de um país. O servidor realiza então chamadas a três APIs: a Wikipedia REST API (para apresentar um resumo do país), a RestCountries API (para mostrar capital, população, moeda e bandeira) e a GNews API (para apresentar três notícias recentes sobre o país). Todos os pedidos às APIs são feitos no lado do servidor. Os resultados são integrados e enviados para o cliente para visualização.
 
-Desenvolver uma aplicação web que:
+A aplicação está publicada em:  
+https://trabalho2-mashup-apis-martimd11.onrender.com
 
-- Consuma e integre dados de pelo menos 2 APIs externas, com o **servidor** a efetuar todas as requisições (server-side).
-- Inclua um sistema de autenticação de utilizadores baseado em **Express Sessions** ou **Passport-local**.
-- Utilize base de dados **MongoDB** para armazenar informação dos utilizadores (por exemplo histórico de pesquisas)
+Para instalar e correr a aplicação localmente, é necessário ter o Node.js instalado. Primeiro, deve clonar-se o repositório do GitHub, aceder à pasta do projeto, instalar as dependências com `npm install`, e criar um ficheiro `.env` com as variáveis de ambiente necessárias: a URI de ligação à base de dados MongoDB, a chave secreta da sessão e a chave da API GNews. De seguida, a aplicação pode ser iniciada com `node app.js`, ficando disponível por defeito em `http://localhost:3000`.
 
-## 2. Funcionalidades
+A base de dados utilizada é MongoDB, e armazena os utilizadores com os seguintes dados: nome de utilizador, password (cifrada com bcrypt) e um array com os termos pesquisados. Sempre que um utilizador realiza uma nova pesquisa, o termo pesquisado é adicionado ao seu histórico.
 
-1. **Autenticação (Server)**
-   - Registo de utilizador (username + password)
-   - Início de sessão com sessões Express ou Passport-local
-   - Proteção de rotas para apenas utilizadores autenticados
-2. **Mashup de APIs**
-   - O utilizador, após login, introduz um termo de pesquisa (e.g., nome de cidade, artista, palavra)
-   - O servidor consome até duas APIs REST externas e retorna dados integrados ao cliente
-   - **Exemplos de APIs**:
-     - **OpenWeatherMap**: clima da cidade (`/weather?q={city}`)
-     - **RestCountries**: informações do país (`/alpha/{code}`)
-     - **Wikipedia REST API**: resumo de artigos (`/page/summary/{title}`)
-     - **Pixabay** ou **Unsplash**: imagens livres de royalties
-     - **NewsAPI** ou **GNews API**: notícias relacionadas
-     - **TMDB API**: informação e posters de filmes
-3. **Persistência em MongoDB**
-   - Guardar credenciais (idealmente hash das passwords)
-   - Histórico de pesquisas por utilizador
+A autenticação dos utilizadores é feita com a biblioteca Passport.js, utilizando a estratégia local. As passwords são guardadas de forma segura com hashing, e o sistema usa express-session para manter a sessão ativa. As rotas estão protegidas para que apenas utilizadores autenticados possam aceder à pesquisa.
 
-## 3. Tecnologias
+Este projeto utiliza Node.js, Express, EJS como engine de templates, MongoDB com Mongoose, Passport para autenticação, Axios para chamadas HTTP e Render.com para publicação online. As APIs integradas são a Wikipedia REST API, RestCountries API e GNews API.
 
-- **Frontend**: HTML, CSS (ou Tailwind/Bootstrap), JavaScript
-- **Backend**: Node.js (v12+), Express
-  - Autenticação: **express-session** ou **passport-local**
-  - Chamadas a APIs feitas no servidor com ftech API (alternativamente com **Axios**, ou **node-fetch** em versoes mais antigas) usando **async/await**
-- **Base de Dados**: MongoDB (Atlas ou local)
+O repositório GitHub encontra-se em:  
+https://github.com/teu-username/trabalho2-mashup-apis-martimd11
 
-## 4. APIs Externas (sugeridas)
 
-- **OpenWeatherMap** (clima e geocoding)
-- **RestCountries** (bandeiras, capitais, moedas)
-- **Wikipedia REST API** (enciclopédia)
-- **Pixabay** / **Unsplash** (imagens)
-- **NewsAPI** / **GNews API** (notícias)
-- **Exchange Rates API** (câmbio de moedas)
-- **DictionaryAPI** (definições, sinónimos)
-- **TMDB API** (filmes, trailers)
-
-> **Nota:** Registem-se nas plataformas e obtenham as chaves necessárias. Todas as requisições a estas APIs devem ser feitas pelo servidor, protegendo as suas credenciais. As API Keys não devem ficar expostas no código.
-
-## 5. Regras & Avaliação
-
-1. **Grupos:** 2 elementos por grupo.
-2. **GitHubClassroom:** Repositório privado com acesso ao utilizador `pedromoreira-estg`.
-3. **Build & Install:** Incluir script para instalar dependências e iniciar a aplicação.
-4. **Documentação (`README.md`):** Incluir:
-   - Identificação dos elementos do grupo
-   - Tecnologias e APIs utilizadas
-   - Instruções de instalação e configuração das chaves e do MongoDB
-   - Comandos para executar localmente
-   - Link de deployment (**render.com** ou equivalente)
-5. **Deployment:** Aplicação operacional online (ex.: render.com).
-6. **Entrega em Moodle:** Cópia do `README.md` e `.zip`e **link** do repositório.
-
----
-
-Boa sorte!
