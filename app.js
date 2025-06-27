@@ -53,11 +53,10 @@ function isAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
-// Página principal redireciona para login
+// Página principal redireciona para registro
 app.get('/', (req, res) => {
-  res.redirect('/login');
+  res.redirect('/register'); 
 });
-
 // Rotas
 const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
