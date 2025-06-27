@@ -19,6 +19,6 @@ A autenticação dos utilizadores é feita com a biblioteca Passport.js, utiliza
 Este projeto utiliza Node.js, Express, EJS como engine de templates, MongoDB com Mongoose, Passport para autenticação, Axios para chamadas HTTP e Render.com para publicação online. As APIs integradas são a Wikipedia REST API, RestCountries API e GNews API.
 
 O repositório GitHub encontra-se em:  
-https://github.com/teu-username/trabalho2-mashup-apis-martimd11
+https://github.com/PWEB-2425/trabalho2-mashup-apis-martimd11
 
 
