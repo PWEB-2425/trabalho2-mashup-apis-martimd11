@@ -47,6 +47,17 @@ passport.deserializeUser(async (id, done) => {
   done(null, user);
 });
 
+// Middleware de proteção
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  res.redirect('/login');
+}
+
+// Página principal redireciona para login
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
+
 // Rotas
 const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
@@ -61,12 +72,6 @@ app.get('/search', isAuthenticated, (req, res) => {
     news: []
   });
 });
-
-// Middleware de proteção
-function isAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.redirect('/login');
-}
 
 // Início servidor
 const PORT = process.env.PORT || 3000;
